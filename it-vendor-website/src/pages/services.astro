@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const services = [
+  {
+    id: 'security',
+    title: 'Cybersecurity Solutions',
+    description: 'Protect your business with comprehensive security services designed to prevent, detect, and respond to cyber threats.',
+    icon: 'shield',
+    offerings: [
+      {
+        name: 'Penetration Testing',
+        description: 'Simulated cyber attacks to identify vulnerabilities before malicious actors do.',
+      },
+      {
+        name: 'Security Audits',
+        description: 'Comprehensive assessment of your security posture and compliance requirements.',
+      },
+      {
+        name: 'Compliance Management',
+        description: 'SOC 2, ISO 27001, HIPAA, and other regulatory compliance support.',
+      },
+      {
+        name: 'Incident Response',
+        description: '24/7 rapid response team to contain and remediate security incidents.',
+      },
+      {
+        name: 'Security Training',
+        description: 'Employee awareness programs to build a security-conscious culture.',
+      },
+      {
+        name: 'Threat Intelligence',
+        description: 'Real-time monitoring and analysis of emerging cyber threats.',
+      },
+    ],
+  },
+  {
+    id: 'infrastructure',
+    title: 'Infrastructure Management',
+    description: 'Build, manage, and optimize your IT infrastructure for performance, scalability, and reliability.',
+    icon: 'server',
+    offerings: [
+      {
+        name: 'Cloud Migration',
+        description: 'Seamless transition to AWS, Azure, or Google Cloud with zero downtime.',
+      },
+      {
+        name: 'Network Architecture',
+        description: 'Design and implementation of secure, high-performance network solutions.',
+      },
+      {
+        name: 'Server Management',
+        description: 'Provisioning, configuration, and maintenance of physical and virtual servers.',
+      },
+      {
+        name: 'Disaster Recovery',
+        description: 'Business continuity planning and disaster recovery solutions.',
+      },
+      {
+        name: 'Load Balancing',
+        description: 'Traffic distribution and failover solutions for high availability.',
+      },
+      {
+        name: 'Storage Solutions',
+        description: 'Enterprise-grade storage systems with backup and redundancy.',
+      },
+    ],
+  },
+  {
+    id: 'implementation',
+    title: 'IT Implementation',
+    description: 'End-to-end implementation services for enterprise software, custom solutions, and integrations.',
+    icon: 'code',
+    offerings: [
+      {
+        name: 'System Integration',
+        description: 'Connect disparate systems for seamless data flow and automation.',
+      },
+      {
+        name: 'ERP Implementation',
+        description: 'Deploy and customize SAP, Oracle, Microsoft Dynamics, and other ERP solutions.',
+      },
+      {
+        name: 'CRM Implementation',
+        description: 'Salesforce, HubSpot, and custom CRM solutions tailored to your needs.',
+      },
+      {
+        name: 'Custom Development',
+        description: 'Bespoke software solutions built to your exact specifications.',
+      },
+      {
+        name: 'API Integration',
+        description: 'RESTful and GraphQL API development and third-party integrations.',
+      },
+      {
+        name: 'Migration Services',
+        description: 'Legacy system modernization and data migration.',
+      },
+    ],
+  },
+  {
+    id: 'maintenance',
+    title: 'Maintenance & Support',
+    description: '24/7 monitoring and support to keep your systems running smoothly with minimal downtime.',
+    icon: 'tools',
+    offerings: [
+      {
+        name: '24/7 Monitoring',
+        description: 'Proactive system monitoring with automated alerting and response.',
+      },
+      {
+        name: 'Helpdesk Support',
+        description: 'Multi-tier support desk with SLA-backed response times.',
+      },
+      {
+        name: 'System Updates',
+        description: 'Regular patches, updates, and security fixes to keep systems current.',
+      },
+      {
+        name: 'Performance Optimization',
+        description: 'Continuous tuning and optimization for peak performance.',
+      },
+      {
+        name: 'Backup Management',
+        description: 'Automated backups with regular testing and verification.',
+      },
+      {
+        name: 'Documentation',
+        description: 'Comprehensive system documentation and runbooks.',
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="IT Services - Cybersecurity, Infrastructure & Implementation | IT Vendor Solutions"
+  description="Comprehensive IT services including cybersecurity solutions, infrastructure management, IT implementation, and 24/7 maintenance support. Expert solutions for your business needs."
+>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary-600 to-primary-900 text-white section-padding">
+    <div class="container-custom text-center">
+      <h1 class="mb-6">Our IT Services</h1>
+      <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+        Comprehensive IT solutions designed to secure, optimize, and transform your business operations.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Detail Sections -->
+  {services.map((service, index) => (
+    <section id={service.id} class={`section-padding ${index % 2 === 0 ? 'bg-white' : 'bg-secondary-50'}`}>
+      <div class="container-custom">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            {service.icon === 'shield' && (
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            )}
+            {service.icon === 'server' && (
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/>
+              </svg>
+            )}
+            {service.icon === 'code' && (
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+            )}
+            {service.icon === 'tools' && (
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            )}
+          </div>
+          <h2 class="mb-4">{service.title}</h2>
+          <p class="text-xl text-secondary-600">{service.description}</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {service.offerings.map((offering) => (
+            <div class="bg-white rounded-xl p-6 border border-secondary-200 hover:border-primary-300 hover:shadow-lg transition-all">
+              <div class="flex items-start mb-4">
+                <svg class="w-6 h-6 text-primary-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                <div>
+                  <h3 class="text-lg font-semibold text-secondary-900 mb-2">{offering.name}</h3>
+                  <p class="text-secondary-600">{offering.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- CTA Section -->
+  <section class="section-padding bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+    <div class="container-custom text-center">
+      <h2 class="mb-6 text-white">Ready to Transform Your IT Infrastructure?</h2>
+      <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+        Let's discuss how our services can help your business achieve its technology goals.
+      </p>
+      <a href="/contact" class="btn bg-white text-primary-700 hover:bg-blue-50 px-8 py-4 text-lg">
+        Schedule a Consultation
+      </a>
+    </div>
+  </section>
+</Layout>

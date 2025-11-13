@@ -1,0 +1,110 @@
+---
+const navItems = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+  <nav class="container-custom">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2 group">
+        <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center">
+          <span class="text-white font-bold text-xl">IT</span>
+        </div>
+        <span class="font-display font-bold text-xl text-secondary-900 group-hover:text-primary-600 transition-colors">
+          IT Vendor Solutions
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-1">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`px-4 py-2 rounded-lg font-medium transition-colors ${
+              currentPath === item.href
+                ? 'bg-primary-50 text-primary-700'
+                : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900'
+            }`}
+          >
+            {item.name}
+          </a>
+        ))}
+        <a href="/contact" class="btn btn-primary ml-4">
+          Get Started
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-lg text-secondary-600 hover:bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+      >
+        <svg id="menu-icon-open" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="menu-icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden pb-4">
+      <div class="flex flex-col space-y-2">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`px-4 py-3 rounded-lg font-medium transition-colors ${
+              currentPath === item.href
+                ? 'bg-primary-50 text-primary-700'
+                : 'text-secondary-600 hover:bg-secondary-50 hover:text-secondary-900'
+            }`}
+          >
+            {item.name}
+          </a>
+        ))}
+        <a href="/contact" class="btn btn-primary">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIconOpen = document.getElementById('menu-icon-open');
+  const menuIconClose = document.getElementById('menu-icon-close');
+
+  menuButton?.addEventListener('click', () => {
+    const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+
+    menuButton.setAttribute('aria-expanded', String(!isExpanded));
+    mobileMenu?.classList.toggle('hidden');
+    menuIconOpen?.classList.toggle('hidden');
+    menuIconClose?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest('nav')) {
+      mobileMenu?.classList.add('hidden');
+      menuIconOpen?.classList.remove('hidden');
+      menuIconClose?.classList.add('hidden');
+      menuButton?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

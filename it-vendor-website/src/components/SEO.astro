@@ -1,0 +1,81 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  structuredData?: object;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/og-default.jpg',
+  ogType = 'website',
+  noindex = false,
+  structuredData,
+} = Astro.props;
+
+const siteUrl = Astro.site || 'https://your-domain.com';
+const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
+const ogImageURL = new URL(ogImage, siteUrl).href;
+
+// Default structured data for organization
+const defaultStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'IT Vendor Solutions',
+  description: 'Leading IT solutions provider specializing in security, infrastructure, implementation, and maintenance',
+  url: siteUrl,
+  logo: `${siteUrl}/images/logo.png`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-XXX-XXX-XXXX',
+    contactType: 'customer service',
+    areaServed: 'US',
+    availableLanguage: 'en',
+  },
+  sameAs: [
+    'https://linkedin.com/company/yourcompany',
+    'https://twitter.com/yourcompany',
+  ],
+};
+
+const finalStructuredData = structuredData || defaultStructuredData;
+---
+
+<!-- Primary Meta Tags -->
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageURL} />
+<meta property="og:site_name" content="IT Vendor Solutions" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL} />
+
+<!-- Structured Data / JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(finalStructuredData)} />
+
+<!-- Preconnect to external domains for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
