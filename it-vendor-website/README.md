@@ -1,4 +1,4 @@
-# IT Vendor Solutions - Company Profile Website
+# VEXOIT (Vexoit Digital Solution) - Company Profile Website
 
 A high-performance, SEO-optimized company profile website built with Astro, TypeScript, and Tailwind CSS. Designed for IT service providers specializing in security, infrastructure, implementation, and maintenance.
 
@@ -174,33 +174,56 @@ Then reference in your code:
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+### Self-Hosted Linux Server (Recommended for VEXOIT)
 
-1. Push code to GitHub
-2. Import project in Vercel
-3. Deploy (automatic)
+Deploy on your own Linux server with full control. Complete guide available in `LINUX_SERVER_DEPLOYMENT.md`.
+
+**Quick Start:**
 
 ```bash
-# Or use Vercel CLI
+# 1. Build the website
+npm run build
+
+# 2. Use automated deployment script
+chmod +x server-configs/deploy.sh
+# Edit deploy.sh to add your server details
+./server-configs/deploy.sh
+```
+
+**What you get:**
+- ✅ Full control over your infrastructure
+- ✅ Works with your existing network appliances
+- ✅ Nginx or Apache configuration included
+- ✅ SSL/HTTPS setup with Let's Encrypt
+- ✅ Automated deployment script
+- ✅ Production-ready configurations
+
+**Documentation:**
+- **Full Guide**: `LINUX_SERVER_DEPLOYMENT.md`
+- **Config Files**: `server-configs/` directory
+  - `nginx.conf` - Nginx configuration
+  - `apache.conf` - Apache configuration
+  - `.htaccess` - Apache directory config
+  - `deploy.sh` - Automated deployment
+  - `README.md` - Configuration guide
+
+### Cloud Hosting (Alternative)
+
+If you prefer managed hosting:
+
+**Vercel:**
+```bash
 npm i -g vercel
 vercel
 ```
 
-### Netlify
-
-1. Push code to GitHub
-2. Connect repository in Netlify
-3. Deploy (automatic)
-
+**Netlify:**
 ```bash
-# Or use Netlify CLI
 npm i -g netlify-cli
 netlify deploy --prod
 ```
 
-### Other Platforms
-
-Works on any static hosting:
+**Other Platforms:**
 - Cloudflare Pages
 - GitHub Pages
 - AWS S3 + CloudFront
