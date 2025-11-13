@@ -1,81 +1,188 @@
 ---
+/**
+ * SEO Component - Handles all SEO-related meta tags and structured data
+ *
+ * PURPOSE: This component centralizes SEO configuration for all pages, making it easy
+ * to maintain consistent SEO practices across the entire website.
+ *
+ * LEARNING: SEO (Search Engine Optimization) helps your website rank better in search
+ * engines like Google. This component provides:
+ * 1. Primary meta tags (title, description) - shown in search results
+ * 2. Open Graph tags - for Facebook/LinkedIn sharing previews
+ * 3. Twitter Card tags - for Twitter sharing previews
+ * 4. Structured data (JSON-LD) - helps search engines understand your content
+ * 5. Canonical URLs - prevents duplicate content issues
+ */
+
+// TypeScript interface defines what props (properties) this component accepts
+// The '?' means the property is optional, without '?' means it's required
 export interface Props {
-  title: string;
-  description: string;
-  canonical?: string;
-  ogImage?: string;
-  ogType?: string;
-  noindex?: boolean;
-  structuredData?: object;
+  title: string;              // Required: Page title (shown in browser tab and search results)
+  description: string;         // Required: Page description (shown in search results)
+  canonical?: string;          // Optional: Override default canonical URL
+  ogImage?: string;           // Optional: Override default Open Graph image
+  ogType?: string;            // Optional: Override default Open Graph type (e.g., 'article', 'website')
+  noindex?: boolean;          // Optional: Prevent search engines from indexing this page
+  structuredData?: object;    // Optional: Override default structured data
 }
 
+// Destructure props with default values
+// This extracts the values passed to the component and provides fallbacks
 const {
   title,
   description,
   canonical,
-  ogImage = '/images/og-default.jpg',
-  ogType = 'website',
-  noindex = false,
+  ogImage = '/images/og-default.jpg',      // Default image if none provided
+  ogType = 'website',                       // Default type for Open Graph
+  noindex = false,                          // Default: allow indexing
   structuredData,
 } = Astro.props;
 
+// SITE URL CONSTRUCTION
+// Purpose: Create absolute URLs for meta tags (required by Open Graph and Twitter Cards)
+// Astro.site comes from astro.config.mjs, fallback for development
 const siteUrl = Astro.site || 'https://your-domain.com';
+
+// CANONICAL URL
+// Purpose: Tells search engines the "official" URL for this page to prevent duplicate content issues
+// Example: If your page is accessible via both /about and /about/, canonical points to one
 const canonicalURL = canonical || new URL(Astro.url.pathname, siteUrl).href;
+
+// OPEN GRAPH IMAGE URL
+// Purpose: Convert relative image path to absolute URL (required by social media platforms)
+// Example: '/images/og.jpg' becomes 'https://yourdomain.com/images/og.jpg'
 const ogImageURL = new URL(ogImage, siteUrl).href;
 
-// Default structured data for organization
+// STRUCTURED DATA (Schema.org JSON-LD)
+// Purpose: Provide machine-readable data about your organization to search engines
+// Benefits:
+// - Enables rich snippets in search results (star ratings, business hours, etc.)
+// - Helps Google understand your business
+// - Can appear in Google Knowledge Panel
+// Learn more: https://schema.org/Organization
 const defaultStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Vexoit Digital Solution',
+  '@context': 'https://schema.org',        // Defines the vocabulary being used
+  '@type': 'Organization',                  // Type of entity (Organization, LocalBusiness, etc.)
+  name: 'Vexoit Digital Solution',         // Official company name
   description: 'Leading IT solutions provider specializing in security, infrastructure, implementation, and maintenance',
-  url: siteUrl,
-  logo: `${siteUrl}/images/logo.png`,
+  url: siteUrl,                             // Company website URL
+  logo: `${siteUrl}/images/logo.png`,      // Company logo (appears in Knowledge Panel)
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+1-XXX-XXX-XXXX',
-    contactType: 'customer service',
-    areaServed: 'US',
-    availableLanguage: 'en',
+    telephone: '+1-XXX-XXX-XXXX',          // Update with your phone number
+    contactType: 'customer service',        // Type of contact
+    areaServed: 'US',                       // Geographic area served
+    availableLanguage: 'en',                // Languages available
   },
   sameAs: [
-    'https://linkedin.com/company/yourcompany',
+    // Social media profiles - helps Google verify your business
+    'https://linkedin.com/company/yourcompany',  // Update with actual URLs
     'https://twitter.com/yourcompany',
   ],
 };
 
+// Use custom structured data if provided, otherwise use default
 const finalStructuredData = structuredData || defaultStructuredData;
 ---
 
-<!-- Primary Meta Tags -->
+<!--
+  PRIMARY META TAGS
+  Purpose: Basic SEO tags that all search engines understand
+  These appear in the <head> section of your HTML
+-->
+<!-- Page Title: Appears in browser tab and search engine results (50-60 characters optimal) -->
 <meta name="title" content={title} />
+
+<!-- Page Description: Shown in search results under the title (150-160 characters optimal) -->
 <meta name="description" content={description} />
+
+<!-- Robots Meta: Tells search engines whether to index this page -->
+<!-- Only rendered if noindex is true (for pages like login, admin, etc.) -->
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<!-- Canonical URL -->
+<!--
+  CANONICAL URL
+  Purpose: Prevents duplicate content issues by specifying the "official" URL
+  Example: If page is accessible via /about/ and /about.html, this points to one version
+  Learn more: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+-->
 <link rel="canonical" href={canonicalURL} />
 
-<!-- Open Graph / Facebook -->
+<!--
+  OPEN GRAPH META TAGS (Facebook, LinkedIn, WhatsApp)
+  Purpose: Controls how your pages look when shared on social media
+  When someone shares your link, these tags determine the preview card shown
+  Learn more: https://ogp.me/
+-->
+<!-- Type of content: 'website' for homepage, 'article' for blog posts -->
 <meta property="og:type" content={ogType} />
+
+<!-- URL being shared (should match canonical URL) -->
 <meta property="og:url" content={canonicalURL} />
+
+<!-- Title shown in social media preview -->
 <meta property="og:title" content={title} />
+
+<!-- Description shown in social media preview -->
 <meta property="og:description" content={description} />
+
+<!-- Image shown in social media preview (recommended: 1200x630px) -->
 <meta property="og:image" content={ogImageURL} />
+
+<!-- Site name (appears above title in Facebook preview) -->
 <meta property="og:site_name" content="Vexoit Digital Solution" />
 
-<!-- Twitter -->
+<!--
+  TWITTER CARD META TAGS
+  Purpose: Controls how your pages look when shared on Twitter/X
+  Similar to Open Graph but specific to Twitter
+  Learn more: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards
+-->
+<!-- Card type: 'summary_large_image' shows large image, 'summary' shows smaller image -->
 <meta name="twitter:card" content="summary_large_image" />
+
+<!-- URL being shared -->
 <meta name="twitter:url" content={canonicalURL} />
+
+<!-- Title shown in Twitter card -->
 <meta name="twitter:title" content={title} />
+
+<!-- Description shown in Twitter card -->
 <meta name="twitter:description" content={description} />
+
+<!-- Image shown in Twitter card (recommended: 1200x628px) -->
 <meta name="twitter:image" content={ogImageURL} />
 
-<!-- Structured Data / JSON-LD -->
+<!--
+  STRUCTURED DATA (JSON-LD)
+  Purpose: Machine-readable data that helps search engines understand your content
+  Format: JSON-LD (JavaScript Object Notation for Linked Data)
+  Benefits:
+  - Rich snippets in search results (star ratings, prices, availability)
+  - Better understanding of your business by search engines
+  - Potential appearance in Google Knowledge Panel
+  Learn more: https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+-->
 <script type="application/ld+json" set:html={JSON.stringify(finalStructuredData)} />
 
-<!-- Preconnect to external domains for performance -->
+<!--
+  PERFORMANCE OPTIMIZATION - Resource Hints
+  These tags improve page load speed by telling the browser to prepare connections early
+-->
+
+<!--
+  PRECONNECT
+  Purpose: Establishes early connections to external domains
+  Saves time by completing DNS lookup, TCP handshake, and TLS negotiation before resources are requested
+  Use for: Critical third-party domains (fonts, analytics, APIs)
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<!-- DNS Prefetch -->
+<!--
+  DNS PREFETCH
+  Purpose: Resolves domain names to IP addresses in advance
+  Faster than preconnect but doesn't establish full connection
+  Use for: Less critical third-party domains
+-->
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
