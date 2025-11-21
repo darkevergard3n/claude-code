@@ -5,27 +5,27 @@ const contactInfo = [
   {
     icon: 'email',
     title: 'Email Us',
-    detail: 'info@itvendor.com',
-    link: 'mailto:info@itvendor.com',
+    detail: 'hi@vexoit.id',
+    link: 'mailto:hi@vexoit.id',
   },
   {
     icon: 'phone',
     title: 'Call Us',
-    detail: '+1 (234) 567-890',
-    link: 'tel:+1234567890',
+    detail: '+62 21 5020 6779',
+    link: 'tel:+622150206779',
   },
   {
     icon: 'location',
     title: 'Visit Us',
-    detail: '123 Tech Street, San Francisco, CA 94105',
+    detail: 'The manhattan Square 12th Floor, Jl. TB Simatupang Kav. 1S, Jakarta - Indonesia',
     link: 'https://maps.google.com',
   },
 ];
 
 const officeHours = [
-  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM PST' },
-  { day: 'Saturday', hours: '10:00 AM - 4:00 PM PST' },
-  { day: 'Sunday', hours: 'Closed' },
+  { day: 'Monday - Friday', hours: '9:00 AM - 6:00 PM WIB' },
+  { day: 'Saturday - Sunday', hours: 'Closed' },
+  { day: 'National Holiday', hours: 'Closed' },
 ];
 ---
 
@@ -34,7 +34,7 @@ const officeHours = [
   description="Contact Vexoit Digital Solution for expert IT services. Reach out for cybersecurity, infrastructure, implementation, and support solutions. Free consultation available."
 >
   <!-- Hero Section -->
-  <section class="bg-gradient-to-br from-primary-600 to-primary-900 text-white section-padding">
+  <section class="bg-gradient-to-br from-primary-600 via-primary-700 to-accent-900 text-white section-padding">
     <div class="container-custom text-center">
       <h1 class="mb-6">Get in Touch</h1>
       <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
@@ -89,7 +89,7 @@ const officeHours = [
           </div>
 
           <!-- Office Hours -->
-          <div class="bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl p-6">
+          <div class="bg-gradient-to-br from-primary-50 to-accent-50 rounded-xl p-6">
             <h3 class="text-xl font-semibold mb-4 text-secondary-900">Office Hours</h3>
             <div class="space-y-3">
               {officeHours.map((schedule) => (
@@ -123,7 +123,7 @@ const officeHours = [
                     name="firstName"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-secondary-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="John"
+                    placeholder="Budi"
                   />
                 </div>
                 <div>
@@ -136,7 +136,7 @@ const officeHours = [
                     name="lastName"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-secondary-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="Doe"
+                    placeholder="Arie"
                   />
                 </div>
               </div>
@@ -152,7 +152,7 @@ const officeHours = [
                     name="email"
                     required
                     class="w-full px-4 py-3 rounded-lg border border-secondary-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="john@company.com"
+                    placeholder="Budi@company.com"
                   />
                 </div>
                 <div>
@@ -164,7 +164,7 @@ const officeHours = [
                     id="phone"
                     name="phone"
                     class="w-full px-4 py-3 rounded-lg border border-secondary-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
-                    placeholder="+1 (234) 567-890"
+                    placeholder="+62 812 3456 7890"
                   />
                 </div>
               </div>
